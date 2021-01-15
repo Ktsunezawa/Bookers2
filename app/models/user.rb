@@ -4,7 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :books, dependent: :destroy
+
+  attachment :image
+
   validates :name, presence: true
   validates :email, presence: true
   validates :encrypted_password, presence: true
+
 end
