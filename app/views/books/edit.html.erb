@@ -1,8 +1,18 @@
-<P><%= flash[:notice] %></P>
+<P class="notice"><%= flash[:notice] %></P>
 <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-sm-0 mx-auto">
       <h2>Editing Book</h2>
+      <div class="error_explanation">
+      <% if @book.errors.any? %>
+      <h3><%= @book.errors.count %>error prohibited this obj from being saved</h3>
+    <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+      <% end %>
+      </div>
       <%= form_with model:@book, local:true do |f| %>
       <div class="form-group">
         <label for="book_title">Title</label>
@@ -13,7 +23,7 @@
         <%= f.text_area :body, autofocus:true, class: 'form-control opinion' %>
       </div>
       <div class="form-group">
-        <%= f.submit "Update Book",class: 'btn btn-secondary' %>
+        <%= f.submit "Update Book", class: 'btn btn-secondary' %>
       </div>
       <% end %>
       <%= link_to "Show", book_path %>
